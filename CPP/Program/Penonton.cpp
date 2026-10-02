@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <string>
 #include "Orang.cpp"
@@ -15,11 +14,8 @@ public:
     Penonton() : Orang(), Tiket(), camilan(""), metodePembayaran("") {}
 
     // Konstruktor ini membuat objek Penonton yang mewarisi sifat Orang dan Tiket (Multiple Inheritance).
-    Penonton(string nik, string nama, string jenisKelamin,
-             string kodeTiket, string namaFilm, string nomorKursi, double harga,
-             string camilan, string metodePembayaran)
-        : Orang(nik, nama, jenisKelamin), Tiket(kodeTiket, namaFilm, nomorKursi, harga),
-          camilan(camilan), metodePembayaran(metodePembayaran) {}
+    Penonton(string nik, string nama, string jenisKelamin, string kodeTiket, string namaFilm, string nomorKursi, double harga, string camilan, string metodePembayaran):
+        Orang(nik, nama, jenisKelamin), Tiket(kodeTiket, namaFilm, nomorKursi, harga), camilan(camilan), metodePembayaran(metodePembayaran) {}
 
     // Method ini mengembalikan pilihan camilan penonton.
     string getCamilan() const {
@@ -48,6 +44,4 @@ public:
         cout << "Camilan       : " << camilan << endl;
         cout << "Pembayaran    : " << metodePembayaran << endl;
     }
-
-    ~Penonton() {}
 };

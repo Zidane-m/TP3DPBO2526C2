@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
@@ -53,6 +52,4 @@ public:
         cout << "Nama          : " << nama << endl;
         cout << "Jenis Kelamin : " << jenisKelamin << endl;
     }
-
-    virtual ~Orang() {}
 };

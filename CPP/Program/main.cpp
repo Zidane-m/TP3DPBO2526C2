@@ -7,59 +7,78 @@ using namespace std;
 
 // Method ini menampilkan daftar seluruh penonton dalam format tabel yang dinamis dan bergaris.
 void tampilkanTabelPenonton(const vector<Penonton>& daftarPenonton) {
-    if (daftarPenonton.empty()) {
+    if (daftarPenonton.size() == 0) {
         cout << "\n[INFO] Belum ada penonton yang terdaftar di bioskop ini.\n" << endl;
         return;
     }
 
-    vector<string> header = {"NIK", "Nama", "L/P", "Kode", "Film", "Kursi", "Harga", "Camilan", "Pembayaran"};
-    vector<int> lebar;
-    for (const auto& kolom : header) {
-        lebar.push_back((int)kolom.length());
+    string header[9] = {"NIK", "Nama", "L/P", "Kode", "Film", "Kursi", "Harga", "Camilan", "Pembayaran"};
+    int lebar[9];
+    for (int i = 0; i < 9; i++) {
+        lebar[i] = header[i].length();
     }
 
-    for (const auto& p : daftarPenonton) {
-        lebar[0] = max(lebar[0], (int)p.getNik().length());
-        lebar[1] = max(lebar[1], (int)p.getNama().length());
-        lebar[2] = max(lebar[2], (int)p.getJenisKelamin().length());
-        lebar[3] = max(lebar[3], (int)p.getKodeTiket().length());
-        lebar[4] = max(lebar[4], (int)p.getNamaFilm().length());
-        lebar[5] = max(lebar[5], (int)p.getNomorKursi().length());
-        lebar[6] = max(lebar[6], (int)("Rp " + to_string((long long)p.getHarga())).length());
-        lebar[7] = max(lebar[7], (int)p.getCamilan().length());
-        lebar[8] = max(lebar[8], (int)p.getMetodePembayaran().length());
-    }
-
-    auto cetakBaris = [&](const vector<string>& kolom) {
-        cout << "|";
-        for (size_t i = 0; i < kolom.size(); i++) {
-            cout << " " << left << setw(lebar[i]) << kolom[i] << " |";
+    for (int i = 0; i < (int)daftarPenonton.size(); i++) {
+        if ((int)daftarPenonton[i].getNik().length() > lebar[0]) {
+            lebar[0] = daftarPenonton[i].getNik().length();
         }
-        cout << endl;
-    };
+        if ((int)daftarPenonton[i].getNama().length() > lebar[1]) {
+            lebar[1] = daftarPenonton[i].getNama().length();
+        }
+        if ((int)daftarPenonton[i].getJenisKelamin().length() > lebar[2]) {
+            lebar[2] = daftarPenonton[i].getJenisKelamin().length();
+        }
+        if ((int)daftarPenonton[i].getKodeTiket().length() > lebar[3]) {
+            lebar[3] = daftarPenonton[i].getKodeTiket().length();
+        }
+        if ((int)daftarPenonton[i].getNamaFilm().length() > lebar[4]) {
+            lebar[4] = daftarPenonton[i].getNamaFilm().length();
+        }
+        if ((int)daftarPenonton[i].getNomorKursi().length() > lebar[5]) {
+            lebar[5] = daftarPenonton[i].getNomorKursi().length();
+        }
+        string hargaStr = "Rp " + to_string((int)daftarPenonton[i].getHarga());
+        if ((int)hargaStr.length() > lebar[6]) {
+            lebar[6] = hargaStr.length();
+        }
+        if ((int)daftarPenonton[i].getCamilan().length() > lebar[7]) {
+            lebar[7] = daftarPenonton[i].getCamilan().length();
+        }
+        if ((int)daftarPenonton[i].getMetodePembayaran().length() > lebar[8]) {
+            lebar[8] = daftarPenonton[i].getMetodePembayaran().length();
+        }
+    }
 
     string garis = "+";
-    for (int w : lebar) {
-        garis += string(w + 2, '-') + "+";
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < lebar[i] + 2; j++) {
+            garis += "-";
+        }
+        garis += "+";
     }
 
     cout << garis << endl;
-    cetakBaris(header);
+
+    cout << "|";
+    for (int i = 0; i < 9; i++) {
+        cout << " " << left << setw(lebar[i]) << header[i] << " |";
+    }
+    cout << endl;
+
     cout << garis << endl;
 
-    for (const auto& p : daftarPenonton) {
-        vector<string> data = {
-            p.getNik(),
-            p.getNama(),
-            p.getJenisKelamin(),
-            p.getKodeTiket(),
-            p.getNamaFilm(),
-            p.getNomorKursi(),
-            "Rp " + to_string((long long)p.getHarga()),
-            p.getCamilan(),
-            p.getMetodePembayaran()
-        };
-        cetakBaris(data);
+    for (int i = 0; i < (int)daftarPenonton.size(); i++) {
+        cout << "|";
+        cout << " " << left << setw(lebar[0]) << daftarPenonton[i].getNik() << " |";
+        cout << " " << left << setw(lebar[1]) << daftarPenonton[i].getNama() << " |";
+        cout << " " << left << setw(lebar[2]) << daftarPenonton[i].getJenisKelamin() << " |";
+        cout << " " << left << setw(lebar[3]) << daftarPenonton[i].getKodeTiket() << " |";
+        cout << " " << left << setw(lebar[4]) << daftarPenonton[i].getNamaFilm() << " |";
+        cout << " " << left << setw(lebar[5]) << daftarPenonton[i].getNomorKursi() << " |";
+        cout << " " << left << setw(lebar[6]) << ("Rp " + to_string((int)daftarPenonton[i].getHarga())) << " |";
+        cout << " " << left << setw(lebar[7]) << daftarPenonton[i].getCamilan() << " |";
+        cout << " " << left << setw(lebar[8]) << daftarPenonton[i].getMetodePembayaran() << " |";
+        cout << endl;
     }
 
     cout << garis << endl;

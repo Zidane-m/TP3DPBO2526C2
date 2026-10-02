@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <vector>
 #include <string>
@@ -18,8 +17,8 @@ public:
     Bioskop() : namaBioskop(""), lokasi(""), studio(), daftarPenonton() {}
 
     // Konstruktor ini menginisialisasi Bioskop beserta objek Studio di dalamnya (Komposisi).
-    Bioskop(string namaBioskop, string lokasi, string namaStudio, int kapasitas, string jenisLayar)
-        : namaBioskop(namaBioskop), lokasi(lokasi), studio(namaStudio, kapasitas, jenisLayar) {}
+    Bioskop(string namaBioskop, string lokasi, string namaStudio, int kapasitas, string jenisLayar):
+        namaBioskop(namaBioskop), lokasi(lokasi), studio(namaStudio, kapasitas, jenisLayar) {}
 
     // Method ini mengembalikan nama bioskop.
     string getNamaBioskop() const {
@@ -47,7 +46,7 @@ public:
     }
 
     // Method ini mengubah objek studio bioskop.
-    void setStudio(const Studio& studio) {
+    void setStudio(Studio studio) {
         this->studio = studio;
     }
 
@@ -57,12 +56,12 @@ public:
     }
 
     // Method ini mengatur/mengubah daftar penonton di bioskop.
-    void setDaftarPenonton(const vector<Penonton>& daftarPenonton) {
+    void setDaftarPenonton(vector<Penonton> daftarPenonton) {
         this->daftarPenonton = daftarPenonton;
     }
 
     // Method ini menambahkan satu objek penonton ke dalam daftar penonton (Array of Object).
-    void tambahPenonton(const Penonton& penonton) {
+    void tambahPenonton(Penonton penonton) {
         daftarPenonton.push_back(penonton);
     }
 
@@ -72,6 +71,4 @@ public:
         cout << "Lokasi        : " << lokasi << endl;
         studio.tampilkanData();
     }
-
-    ~Bioskop() {}
 };

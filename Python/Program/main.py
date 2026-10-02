@@ -4,7 +4,7 @@ from Penonton import Penonton
 
 def tampilkanTabelPenonton(daftar_penonton):
     # Fungsi ini menampilkan seluruh data penonton dalam format tabel dinamis bergaris.
-    if not daftar_penonton:
+    if len(daftar_penonton) == 0:
         print("\n[INFO] Belum ada penonton yang terdaftar di bioskop ini.\n")
         return
 
@@ -13,7 +13,8 @@ def tampilkanTabelPenonton(daftar_penonton):
     ]
     rows = []
 
-    for p in daftar_penonton:
+    for i in range(len(daftar_penonton)):
+        p = daftar_penonton[i]
         rows.append([
             p.getNik(),
             p.getNama(),
@@ -21,26 +22,41 @@ def tampilkanTabelPenonton(daftar_penonton):
             p.getKodeTiket(),
             p.getNamaFilm(),
             p.getNomorKursi(),
-            f"Rp {int(p.getHarga())}",
+            "Rp " + str(int(p.getHarga())),
             p.getCamilan(),
             p.getMetodePembayaran()
         ])
 
-    widths = [len(str(header)) for header in headers]
-    for row in rows:
-        for i, value in enumerate(row):
-            widths[i] = max(widths[i], len(str(value)))
+    widths = []
+    for i in range(len(headers)):
+        widths.append(len(headers[i]))
 
-    def print_row(values):
-        cells = [str(value).ljust(widths[i]) for i, value in enumerate(values)]
-        print("| " + " | ".join(cells) + " |")
+    for i in range(len(rows)):
+        for j in range(len(rows[i])):
+            if len(rows[i][j]) > widths[j]:
+                widths[j] = len(rows[i][j])
 
-    border = "+" + "+".join("-" * (width + 2) for width in widths) + "+"
+    border = "+"
+    for i in range(len(widths)):
+        border += "-" * (widths[i] + 2) + "+"
+
     print(border)
-    print_row(headers)
+
+    # Cetak baris header
+    header_str = "|"
+    for i in range(len(headers)):
+        spasi = " " * (widths[i] - len(headers[i]))
+        header_str += " " + headers[i] + spasi + " |"
+    print(header_str)
     print(border)
-    for row in rows:
-        print_row(row)
+
+    # Cetak baris data penonton
+    for i in range(len(rows)):
+        row_str = "|"
+        for j in range(len(rows[i])):
+            spasi = " " * (widths[j] - len(rows[i][j]))
+            row_str += " " + rows[i][j] + spasi + " |"
+        print(row_str)
     print(border)
 
 

@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
@@ -53,6 +52,4 @@ public:
         cout << "Kapasitas     : " << kapasitas << " Kursi" << endl;
         cout << "Jenis Layar   : " << jenisLayar << endl;
     }
-
-    ~Studio() {}
 };

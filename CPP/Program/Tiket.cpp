@@ -1,4 +1,3 @@
-#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
@@ -63,8 +62,6 @@ public:
         cout << "Kode Tiket    : " << kodeTiket << endl;
         cout << "Nama Film     : " << namaFilm << endl;
         cout << "Nomor Kursi   : " << nomorKursi << endl;
-        cout << "Harga Tiket   : Rp " << (long long)harga << endl;
+        cout << "Harga Tiket   : Rp " << (int)harga << endl;
     }
-
-    virtual ~Tiket() {}
 };
