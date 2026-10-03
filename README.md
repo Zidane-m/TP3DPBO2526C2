@@ -99,10 +99,6 @@ classDiagram
 - **`+` (Public):** Anggota kelas dapat diakses dari luar kelas (seluruh *method*, *getter*, dan *setter*).
 - **`-` (Private):** Anggota kelas hanya dapat diakses di dalam kelasnya sendiri (atribut kelas `Penonton`, `LayarProyektor`, `Studio`).
 - **`#` (Protected):** Anggota kelas dapat diakses oleh kelas itu sendiri dan kelas turunannya (atribut kelas induk `Orang` dan `Tiket`).
-- **`~` (Generic Type):** Notasi Mermaid untuk tipe parameter/koleksi (seperti `List~Penonton~` atau `vector<Penonton>`).
-- **`<|--` (Inheritance):** Hubungan pewarisan sifat (*Multiple Inheritance* pada `Penonton`).
-- **`*--` (Composition):** Hubungan kepemilikan utuh / *part-of* (`LayarProyektor` di dalam `Studio`).
-- **`o--` (Aggregation):** Hubungan penampung objek jamak / *Array of Object* (`daftarPenonton` di dalam `Studio`).
 
 ---
 
