@@ -143,7 +143,7 @@ Class utama pengelola bioskop yang menerapkan konsep **Composition** (memiliki `
    - Diterapkan pada class `Bioskop` yang menampung kumpulan objek `Penonton` dalam struktur data dinamis (`vector` di C++ dan `list` di Python).
 
 4. **Encapsulation (Getter dan Setter)**:
-   - Seluruh atribut pada setiap kelas dilindungi dengan *access modifier* (`private` atau `protected`) dan disediakan *getter* serta *setter* lengkap sesuai konvensi standar OOP.
+   - Seluruh atribut pada setiap kelas dilindungi dengan *access modifier* (`private` atau `protected`) dan disediakan *getter* serta *setter* lengkap.
 
 ---
 
@@ -161,7 +161,5 @@ Class utama pengelola bioskop yang menerapkan konsep **Composition** (memiliki `
 ## Dokumentasi Output Program
 
 ### 1. C++
-*(Simpan screenshot running program C++ di folder `CPP/Dokumentasi`)*
 
 ### 2. Python
-*(Simpan screenshot running program Python di folder `Python/Dokumentasi`)*
