@@ -15,12 +15,94 @@ Sistem Informasi Manajemen Penonton Bioskop dengan Multiple Inheritance, Composi
 
 Program menggunakan lima class dengan hubungan pewarisan majemuk (*Multiple Inheritance*), hubungan bagian-dari (*Composition*), dan penampung objek jamak (*Array of Object*):
 
-![desain/diagram tp3](Diagram_TP3_fix.png)
+```mermaid
+classDiagram
+    Orang <|-- Penonton : Mewarisi
+    Tiket <|-- Penonton : Mewarisi
+    Studio *-- LayarProyektor : Komposisi (Part-Of)
+    Studio o-- Penonton : Array of Object
+
+    class Orang {
+        #noKtp : string
+        #nama : string
+        #jenisKelamin : string
+        +getNoKtp() string
+        +setNoKtp(noKtp : string) void
+        +getNama() string
+        +setNama(nama : string) void
+        +getJenisKelamin() string
+        +setJenisKelamin(jenisKelamin : string) void
+        +tampilkanData() void
+    }
+
+    class Tiket {
+        #kodeTiket : string
+        #namaFilm : string
+        #nomorKursi : string
+        #harga : double
+        +getKodeTiket() string
+        +setKodeTiket(kodeTiket : string) void
+        +getNamaFilm() string
+        +setNamaFilm(namaFilm : string) void
+        +getNomorKursi() string
+        +setNomorKursi(nomorKursi : string) void
+        +getHarga() double
+        +setHarga(harga : double) void
+        +tampilkanData() void
+    }
+
+    class Penonton {
+        -camilan : string
+        -metodePembayaran : string
+        +getCamilan() string
+        +setCamilan(camilan : string) void
+        +getMetodePembayaran() string
+        +setMetodePembayaran(metodePembayaran : string) void
+        +tampilkanData() void
+    }
+
+    class LayarProyektor {
+        -tipeLayar : string
+        -resolusi : string
+        -kondisiLampu : string
+        +getTipeLayar() string
+        +setTipeLayar(tipeLayar : string) void
+        +getResolusi() string
+        +setResolusi(resolusi : string) void
+        +getKondisiLampu() string
+        +setKondisiLampu(kondisiLampu : string) void
+        +tampilkanData() void
+    }
+
+    class Studio {
+        -namaStudio : string
+        -namaBioskop : string
+        -kapasitas : int
+        -layarProyektor : LayarProyektor
+        -daftarPenonton : List~Penonton~
+        +getNamaStudio() string
+        +setNamaStudio(namaStudio : string) void
+        +getNamaBioskop() string
+        +setNamaBioskop(namaBioskop : string) void
+        +getKapasitas() int
+        +setKapasitas(kapasitas : int) void
+        +getLayarProyektor() LayarProyektor
+        +setLayarProyektor(layarProyektor : LayarProyektor) void
+        +getDaftarPenonton() List~Penonton~
+        +setDaftarPenonton(daftarPenonton : List~Penonton~) void
+        +tambahPenonton(penonton : Penonton) void
+        +tampilkanInfoStudio() void
+    }
+```
 
 #### Keterangan Simbol Diagram:
 - **`+` (Public):** Anggota kelas dapat diakses dari luar kelas (seluruh *method*, *getter*, dan *setter*).
-- **`-` (Private):** Anggota kelas hanya dapat diakses di dalam kelasnya sendiri (atribut kelas `Penonton`, `Studio`, `Bioskop`).
+- **`-` (Private):** Anggota kelas hanya dapat diakses di dalam kelasnya sendiri (atribut kelas `Penonton`, `LayarProyektor`, `Studio`).
 - **`#` (Protected):** Anggota kelas dapat diakses oleh kelas itu sendiri dan kelas turunannya (atribut kelas induk `Orang` dan `Tiket`).
+- **`~` (Generic Type):** Notasi Mermaid untuk tipe parameter/koleksi (seperti `List~Penonton~` atau `vector<Penonton>`).
+- **`<|--` (Inheritance):** Hubungan pewarisan sifat (*Multiple Inheritance* pada `Penonton`).
+- **`*--` (Composition):** Hubungan kepemilikan utuh / *part-of* (`LayarProyektor` di dalam `Studio`).
+- **`o--` (Aggregation):** Hubungan penampung objek jamak / *Array of Object* (`daftarPenonton` di dalam `Studio`).
 
 ---
 
@@ -44,6 +126,7 @@ Class dasar pertama yang menyimpan identitas personal individu/penonton.
 - `getJenisKelamin()`: Mengembalikan nilai `jenisKelamin`.
 - `setJenisKelamin(jenisKelamin)`: Mengubah nilai `jenisKelamin`.
 - `tampilkanData()`: Menampilkan data dasar orang.
+- `~Orang()`: Destruktor untuk membersihkan objek `Orang` (C++).
 
 ---
 
@@ -68,6 +151,7 @@ Class dasar kedua yang menyimpan informasi tiket nonton bioskop.
 - `getHarga()`: Mengembalikan nilai `harga` tiket.
 - `setHarga(harga)`: Mengubah nilai `harga` tiket.
 - `tampilkanData()`: Menampilkan rincian data tiket.
+- `~Tiket()`: Destruktor untuk membersihkan objek `Tiket` (C++).
 
 ---
 
@@ -86,48 +170,53 @@ Class turunan yang menerapkan konsep **Multiple Inheritance** dengan mewarisi si
 - `getMetodePembayaran()`: Mengembalikan nilai `metodePembayaran`.
 - `setMetodePembayaran(metodePembayaran)`: Mengubah nilai `metodePembayaran`.
 - `tampilkanData()`: Menampilkan seluruh data penonton secara komprehensif.
+- `~Penonton()`: Destruktor untuk membersihkan objek `Penonton` (C++).
+
+---
+
+#### Class `LayarProyektor`
+Class komponen yang merepresentasikan perangkat layar proyektor. Objek ini menjadi bagian dari `Studio` melalui hubungan *Composition*.
+
+**Atribut:**
+- `tipeLayar` (`string`): Jenis teknologi layar proyektor (misal: IMAX Laser).
+- `resolusi` (`string`): Resolusi tayangan layar (misal: 4K Ultra HD).
+- `kondisiLampu` (`string`): Status kondisi lampu proyektor (misal: Optimal).
+
+**Method:**
+- `LayarProyektor()`: Konstruktor default.
+- `LayarProyektor(tipeLayar, resolusi, kondisiLampu)`: Konstruktor berparameter.
+- `getTipeLayar()`: Mengembalikan nilai `tipeLayar`.
+- `setTipeLayar(tipeLayar)`: Mengubah nilai `tipeLayar`.
+- `getResolusi()`: Mengembalikan nilai `resolusi`.
+- `setResolusi(resolusi)`: Mengubah nilai `resolusi`.
+- `getKondisiLampu()`: Mengembalikan nilai `kondisiLampu`.
+- `setKondisiLampu(kondisiLampu)`: Mengubah nilai `kondisiLampu`.
+- `tampilkanData()`: Menampilkan spesifikasi layar proyektor.
+- `~LayarProyektor()`: Destruktor untuk membersihkan objek `LayarProyektor` (C++).
 
 ---
 
 #### Class `Studio`
-Class komponen yang merepresentasikan ruangan studio bioskop. Objek ini menjadi bagian dari `Bioskop` melalui hubungan *Composition*.
+Class utama pengelola studio yang menerapkan konsep **Composition** (memiliki `LayarProyektor`) dan **Array of Object** (memiliki daftar `Penonton`).
 
 **Atribut:**
-- `namaStudio` (`string`): Nama atau nomor studio.
-- `kapasitas` (`int`): Jumlah kapasitas kursi studio.
-- `jenisLayar` (`string`): Tipe layar (misal: IMAX Laser, Regular 2D, Velvet).
-
-**Method:**
-- `Studio()`: Konstruktor default.
-- `Studio(namaStudio, kapasitas, jenisLayar)`: Konstruktor berparameter.
-- `getNamaStudio()`: Mengembalikan nilai `namaStudio`.
-- `setNamaStudio(namaStudio)`: Mengubah nilai `namaStudio`.
-- `getKapasitas()`: Mengembalikan nilai `kapasitas`.
-- `setKapasitas(kapasitas)`: Mengubah nilai `kapasitas`.
-- `getJenisLayar()`: Mengembalikan nilai `jenisLayar`.
-- `setJenisLayar(jenisLayar)`: Mengubah nilai `jenisLayar`.
-- `tampilkanData()`: Menampilkan informasi ruangan studio.
-
----
-
-#### Class `Bioskop`
-Class utama pengelola bioskop yang menerapkan konsep **Composition** (memiliki `Studio`) dan **Array of Object** (memiliki daftar `Penonton`).
-
-**Atribut:**
-- `namaBioskop` (`string`): Nama bioskop (misal: CGV Grand Indonesia).
-- `lokasi` (`string`): Lokasi atau cabang bioskop.
-- `studio` (`Studio`): Objek studio bioskop (*Composition*).
+- `namaStudio` (`string`): Nama studio (misal: Studio 1 - Velvet Screen).
+- `namaBioskop` (`string`): Nama bioskop tempat studio berada (misal: CGV Grand Indonesia).
+- `kapasitas` (`int`): Jumlah kapasitas kursi di studio.
+- `layarProyektor` (`LayarProyektor`): Objek proyektor (*Composition*).
 - `daftarPenonton` (`vector<Penonton>` / `list`): Penampung objek-objek penonton (*Array of Object*).
 
 **Method:**
-- `Bioskop()`: Konstruktor default.
-- `Bioskop(namaBioskop, lokasi, namaStudio, kapasitas, jenisLayar)`: Konstruktor berparameter yang secara langsung membuat objek `Studio` di dalamnya (*Composition*).
+- `Studio()`: Konstruktor default.
+- `Studio(namaStudio, namaBioskop, kapasitas, tipeLayar, resolusi, kondisiLampu)`: Konstruktor berparameter yang secara langsung membuat objek `LayarProyektor` di dalamnya (*Composition*).
+- `getNamaStudio()` / `setNamaStudio()`: Getter dan setter nama studio.
 - `getNamaBioskop()` / `setNamaBioskop()`: Getter dan setter nama bioskop.
-- `getLokasi()` / `setLokasi()`: Getter dan setter lokasi.
-- `getStudio()` / `setStudio()`: Getter dan setter objek studio.
+- `getKapasitas()` / `setKapasitas()`: Getter dan setter kapasitas kursi.
+- `getLayarProyektor()` / `setLayarProyektor()`: Getter dan setter objek proyektor.
 - `getDaftarPenonton()` / `setDaftarPenonton()`: Getter dan setter penampung data penonton.
 - `tambahPenonton(penonton)`: Menambahkan objek `Penonton` baru ke dalam array penonton.
-- `tampilkanInfoBioskop()`: Menampilkan data bioskop dan data studionya.
+- `tampilkanInfoStudio()`: Menampilkan data umum studio dan spesifikasi layarnya.
+- `~Studio()`: Destruktor untuk membersihkan objek `Studio` (C++).
 
 ---
 
@@ -137,10 +226,10 @@ Class utama pengelola bioskop yang menerapkan konsep **Composition** (memiliki `
    - Diterapkan pada class `Penonton` yang mengambil sifat identitas personal dari `Orang` dan sifat tiket bioskop dari `Tiket`.
 
 2. **Composition (Komposisi)**:
-   - Diterapkan antara class `Bioskop` dan `Studio`. Objek `Studio` diciptakan secara langsung di dalam konstruktor class `Bioskop` (*tightly coupled*), yang berarti keberadaan `Studio` merupakan bagian utuh dari siklus hidup objek `Bioskop`.
+   - Diterapkan antara class `Studio` dan `LayarProyektor`. Objek `LayarProyektor` diciptakan secara langsung di dalam konstruktor class `Studio` (*tightly coupled*), yang berarti keberadaan `LayarProyektor` merupakan bagian utuh dari siklus hidup objek `Studio`.
 
 3. **Array of Object**:
-   - Diterapkan pada class `Bioskop` yang menampung kumpulan objek `Penonton` dalam struktur data dinamis (`vector` di C++ dan `list` di Python).
+   - Diterapkan pada class `Studio` yang menampung kumpulan objek `Penonton` dalam struktur data dinamis (`vector` di C++ dan `list` di Python).
 
 4. **Encapsulation (Getter dan Setter)**:
    - Seluruh atribut pada setiap kelas dilindungi dengan *access modifier* (`private` atau `protected`) dan disediakan *getter* serta *setter* lengkap.
@@ -150,11 +239,11 @@ Class utama pengelola bioskop yang menerapkan konsep **Composition** (memiliki `
 ### 4. Penjelasan Alur Program
 
 1. Program memulai eksekusi pada fungsi utama (`main`).
-2. Objek `Bioskop` dibuat dengan nama, lokasi, serta spesifikasi studio (nama studio, kapasitas, dan jenis layar), yang secara otomatis menginstansiasi objek `Studio` di dalamnya.
-3. Program mencetak **Data Sebelum Penambahan Penonton**, yang memperlihatkan informasi bioskop/studio dan status tabel penonton yang masih kosong.
-4. Tiga objek penonton awal dibuat dan dimasukkan ke dalam daftar bioskop melalui method `tambahPenonton()`.
-5. Dua objek penonton tambahan dibuat dan ditambahkan lagi untuk menunjukkan kemampuan penambahan data.
-6. Program mencetak **Data Sesudah Penambahan Penonton**, yang menampilkan tabel rapi bergaris berisi seluruh penonton yang kini terdaftar.
+2. Objek `Studio` dibuat dengan nama studio, nama bioskop, kapasitas, serta spesifikasi layar proyektor (tipe layar, resolusi, kondisi lampu), yang secara otomatis menginstansiasi objek `LayarProyektor` di dalamnya (*Composition*).
+3. Tiga objek penonton awal dibuat dan dimasukkan ke dalam daftar studio melalui method `tambahPenonton()`.
+4. Program mencetak **Data Sebelum Penambahan Penonton**, yang memperlihatkan informasi studio/layar dan tabel bergaris berisi 3 data penonton awal.
+5. Dua objek penonton baru dibuat dan ditambahkan ke dalam studio untuk mendemonstrasikan penambahan data dinamis (*Array of Object*).
+6. Program mencetak **Data Sesudah Penambahan Penonton**, yang menampilkan tabel rapi bergaris berisi seluruh 5 data penonton yang kini terdaftar.
 
 ---
 

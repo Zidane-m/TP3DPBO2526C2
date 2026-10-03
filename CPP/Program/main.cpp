@@ -2,20 +2,37 @@
 #include <iomanip>
 #include <string>
 #include <vector>
-#include "Bioskop.cpp"
+#include "Studio.cpp"
 using namespace std;
 
 // Method ini menampilkan daftar seluruh penonton dalam format tabel yang dinamis dan bergaris.
 void tampilkanTabelPenonton(const vector<Penonton>& daftarPenonton) {
-    if (daftarPenonton.size() == 0) {
-        cout << "\n[INFO] Belum ada penonton yang terdaftar di bioskop ini.\n" << endl;
-        return;
-    }
-
     string header[9] = {"No KTP", "Nama", "L/P", "Kode", "Film", "Kursi", "Harga", "Camilan", "Pembayaran"};
     int lebar[9];
     for (int i = 0; i < 9; i++) {
         lebar[i] = header[i].length();
+    }
+
+    if (daftarPenonton.size() == 0) {
+        string garis = "+";
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < lebar[i] + 2; j++) {
+                garis += "-";
+            }
+            garis += "+";
+        }
+        cout << garis << endl;
+        cout << "|";
+        for (int i = 0; i < 9; i++) {
+            cout << " " << left << setw(lebar[i]) << header[i] << " |";
+        }
+        cout << endl;
+        cout << garis << endl;
+        string pesan = "Belum ada penonton yang terdaftar di studio ini.";
+        int totalLebar = garis.length() - 4;
+        cout << "| " << left << setw(totalLebar) << pesan << " |" << endl;
+        cout << garis << endl;
+        return;
     }
 
     for (int i = 0; i < (int)daftarPenonton.size(); i++) {
@@ -90,35 +107,35 @@ int main() {
     cout << "                      SISTEM INFORMASI MANAJEMEN PENONTON BIOSKOP                        " << endl;
     cout << "=========================================================================================" << endl;
 
-    // Inisialisasi Bioskop (yang sekaligus menginisialisasi Studio melalui Komposisi)
-    Bioskop bioskop("CGV Grand Indonesia", "Jakarta Pusat", "Studio 1 - Velvet Screen", 60, "IMAX Laser");
-
-    // Bagian 1: Tampilkan data sebelum penambahan penonton
-    cout << "\n>>> DATA SEBELUM PENAMBAHAN PENONTON <<<" << endl;
-    bioskop.tampilkanInfoBioskop();
-    tampilkanTabelPenonton(bioskop.getDaftarPenonton());
+    // Inisialisasi Studio (yang sekaligus menginisialisasi LayarProyektor melalui Komposisi)
+    Studio studio("Studio 1 - Velvet Screen", "CGV Grand Indonesia", 60, "IMAX Laser", "4K Ultra HD", "Optimal");
 
     // Menyiapkan 3 data penonton awal (Multiple Inheritance dari Orang dan Tiket)
-    Penonton p1("320101", "Muhammad Zidan", "Laki-laki", "TIK-001", "Interstellar", "A1", 75000, "Popcorn Karamel", "QRIS");
-    Penonton p2("320102", "Asep Samsudin", "Laki-laki", "TIK-002", "Interstellar", "A2", 75000, "Nachos Keju", "Kartu Debit");
-    Penonton p3("320103", "Indira Melati", "Perempuan", "TIK-003", "Inception", "B5", 60000, "Kentang Goreng", "Tunai");
+    Penonton p1("320101", "Muhammad Zidan", "Laki-laki", "TIK-001", "Interstellar", "A1", 75000, "Popcorn", "QRIS");
+    Penonton p2("320102", "Asep Samsudin", "Laki-laki", "TIK-002", "Interstellar", "A2", 75000, "Nachos", "Kartu Debit");
+    Penonton p3("320103", "Indira Melati", "Perempuan", "TIK-003", "Inception", "B5", 60000, "Kentang", "Tunai");
 
-    bioskop.tambahPenonton(p1);
-    bioskop.tambahPenonton(p2);
-    bioskop.tambahPenonton(p3);
+    studio.tambahPenonton(p1);
+    studio.tambahPenonton(p2);
+    studio.tambahPenonton(p3);
 
-    cout << "\n>>> MENAMBAHKAN 2 PENONTON BARU KE BIOSKOP <<<" << endl;
-    Penonton p4("320104", "Budi Santoso", "Laki-laki", "TIK-004", "Avengers: Secret Wars", "C3", 85000, "Hotdog Sapi", "E-Wallet");
-    Penonton p5("320105", "Citra Kirana", "Perempuan", "TIK-005", "Agak Laen 2", "D7", 50000, "Churros Manis", "QRIS");
+    // Bagian 1: Tampilkan data sebelum penambahan penonton (Tabel berisi 3 penonton awal)
+    cout << "\n>>> DATA SEBELUM PENAMBAHAN PENONTON <<<" << endl;
+    studio.tampilkanInfoStudio();
+    tampilkanTabelPenonton(studio.getDaftarPenonton());
 
-    bioskop.tambahPenonton(p4);
-    bioskop.tambahPenonton(p5);
+    cout << "\n>>> MENAMBAHKAN 2 PENONTON BARU KE STUDIO <<<" << endl;
+    Penonton p4("320104", "Budi Santoso", "Laki-laki", "TIK-004", "Avengers", "C3", 85000, "Hotdog", "E-Wallet");
+    Penonton p5("320105", "Citra Kirana", "Perempuan", "TIK-005", "Agak Laen 2", "D7", 50000, "Churros", "QRIS");
+
+    studio.tambahPenonton(p4);
+    studio.tambahPenonton(p5);
     cout << "[BERHASIL] 2 data penonton baru telah berhasil ditambahkan!\n" << endl;
 
-    // Bagian 2: Tampilkan data sesudah penambahan penonton
+    // Bagian 2: Tampilkan data sesudah penambahan penonton (Tabel berisi 5 penonton)
     cout << ">>> DATA SESUDAH PENAMBAHAN PENONTON <<<" << endl;
-    bioskop.tampilkanInfoBioskop();
-    tampilkanTabelPenonton(bioskop.getDaftarPenonton());
+    studio.tampilkanInfoStudio();
+    tampilkanTabelPenonton(studio.getDaftarPenonton());
 
     return 0;
 }

@@ -65,4 +65,7 @@ public:
         cout << "Nomor Kursi   : " << nomorKursi << endl;
         cout << "Harga Tiket   : Rp " << (int)harga << endl;
     }
+
+    // Destruktor ini membersihkan objek Tiket saat siklus hidupnya berakhir.
+    virtual ~Tiket() {}
 };

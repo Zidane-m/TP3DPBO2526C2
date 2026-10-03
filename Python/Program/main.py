@@ -1,18 +1,34 @@
-from Bioskop import Bioskop
+from Studio import Studio
 from Penonton import Penonton
 
 
 def tampilkanTabelPenonton(daftar_penonton):
     # Fungsi ini menampilkan seluruh data penonton dalam format tabel dinamis bergaris.
-    if len(daftar_penonton) == 0:
-        print("\n[INFO] Belum ada penonton yang terdaftar di bioskop ini.\n")
-        return
-
     headers = [
         "No KTP", "Nama", "L/P", "Kode", "Film", "Kursi", "Harga", "Camilan", "Pembayaran"
     ]
-    rows = []
 
+    widths = [len(h) for h in headers]
+
+    if len(daftar_penonton) == 0:
+        border = "+"
+        for w in widths:
+            border += "-" * (w + 2) + "+"
+        print(border)
+        header_str = "|"
+        for i in range(len(headers)):
+            spasi = " " * (widths[i] - len(headers[i]))
+            header_str += " " + headers[i] + spasi + " |"
+        print(header_str)
+        print(border)
+        pesan = "Belum ada penonton yang terdaftar di studio ini."
+        total_lebar = len(border) - 3
+        spasi_pesan = " " * (total_lebar - len(pesan))
+        print("| " + pesan + spasi_pesan + " |")
+        print(border)
+        return
+
+    rows = []
     for i in range(len(daftar_penonton)):
         p = daftar_penonton[i]
         rows.append([
@@ -26,10 +42,6 @@ def tampilkanTabelPenonton(daftar_penonton):
             p.getCamilan(),
             p.getMetodePembayaran()
         ])
-
-    widths = []
-    for i in range(len(headers)):
-        widths.append(len(headers[i]))
 
     for i in range(len(rows)):
         for j in range(len(rows[i])):
@@ -66,35 +78,36 @@ def main():
     print("                      SISTEM INFORMASI MANAJEMEN PENONTON BIOSKOP                        ")
     print("=========================================================================================")
 
-    # Inisialisasi Bioskop (yang sekaligus menginisialisasi Studio melalui Komposisi)
-    bioskop = Bioskop("CGV Grand Indonesia", "Jakarta Pusat", "Studio 1 - Velvet Screen", 60, "IMAX Laser")
-
-    # Bagian 1: Tampilkan data sebelum penambahan penonton
-    print("\n>>> DATA SEBELUM PENAMBAHAN PENONTON <<<")
-    bioskop.tampilkanInfoBioskop()
-    tampilkanTabelPenonton(bioskop.getDaftarPenonton())
+    # Inisialisasi Studio (yang sekaligus menginisialisasi LayarProyektor melalui Komposisi)
+    studio = Studio("Studio 1 - Velvet Screen", "CGV Grand Indonesia", 60, "IMAX Laser", "4K Ultra HD", "Optimal")
 
     # Menyiapkan 3 data penonton awal (Multiple Inheritance dari Orang dan Tiket)
-    p1 = Penonton("320101", "Muhammad Zidan", "Laki-laki", "TIK-001", "Interstellar", "A1", 75000, "Popcorn Karamel", "QRIS")
-    p2 = Penonton("320102", "Mirza Fedrieka", "Laki-laki", "TIK-002", "Interstellar", "A2", 75000, "Nachos Keju", "Kartu Debit")
-    p3 = Penonton("320103", "Alya Amanda", "Perempuan", "TIK-003", "Inception", "B5", 60000, "Kentang Goreng", "Tunai")
+    p1 = Penonton("320101", "Muhammad Zidan", "Laki-laki", "TIK-001", "Interstellar", "A1", 75000, "Popcorn", "QRIS")
+    p2 = Penonton("320102", "Andi Saputra", "Laki-laki", "TIK-002", "Interstellar", "A2", 75000, "Nachos", "Kartu Debit")
+    p3 = Penonton("320103", "Siti Khadijah", "Perempuan", "TIK-003", "Inception", "B5", 60000, "Kentang", "Tunai")
 
-    bioskop.tambahPenonton(p1)
-    bioskop.tambahPenonton(p2)
-    bioskop.tambahPenonton(p3)
+    studio.tambahPenonton(p1)
+    studio.tambahPenonton(p2)
+    studio.tambahPenonton(p3)
 
-    print("\n>>> MENAMBAHKAN 2 PENONTON BARU KE BIOSKOP <<<")
-    p4 = Penonton("320104", "Budi Santoso", "Laki-laki", "TIK-004", "Avengers: Secret Wars", "C3", 85000, "Hotdog Sapi", "E-Wallet")
-    p5 = Penonton("320105", "Citra Kirana", "Perempuan", "TIK-005", "Agak Laen 2", "D7", 50000, "Churros Manis", "QRIS")
+    # Bagian 1: Tampilkan data sebelum penambahan penonton baru (tabel berisi 3 penonton awal)
+    print("\n>>> DATA SEBELUM PENAMBAHAN PENONTON <<<")
+    studio.tampilkanInfoStudio()
+    tampilkanTabelPenonton(studio.getDaftarPenonton())
 
-    bioskop.tambahPenonton(p4)
-    bioskop.tambahPenonton(p5)
+    # Menambahkan 2 penonton baru
+    print("\n>>> MENAMBAHKAN 2 PENONTON BARU KE STUDIO <<<")
+    p4 = Penonton("320104", "Budi Santoso", "Laki-laki", "TIK-004", "Avengers", "C3", 85000, "Hotdog", "E-Wallet")
+    p5 = Penonton("320105", "Citra Kirana", "Perempuan", "TIK-005", "Agak Laen 2", "D7", 50000, "Churros", "QRIS")
+
+    studio.tambahPenonton(p4)
+    studio.tambahPenonton(p5)
     print("[BERHASIL] 2 data penonton baru telah berhasil ditambahkan!\n")
 
-    # Bagian 2: Tampilkan data setelah penambahan penonton
+    # Bagian 2: Tampilkan data sesudah penambahan penonton (tabel berisi 5 penonton)
     print(">>> DATA SESUDAH PENAMBAHAN PENONTON <<<")
-    bioskop.tampilkanInfoBioskop()
-    tampilkanTabelPenonton(bioskop.getDaftarPenonton())
+    studio.tampilkanInfoStudio()
+    tampilkanTabelPenonton(studio.getDaftarPenonton())
 
 
 if __name__ == "__main__":

@@ -53,4 +53,7 @@ public:
         cout << "Nama          : " << nama << endl;
         cout << "Jenis Kelamin : " << jenisKelamin << endl;
     }
+
+    // Destruktor ini membersihkan objek Orang saat siklus hidupnya berakhir.
+    virtual ~Orang() {}
 };

@@ -45,4 +45,7 @@ public:
         cout << "Camilan       : " << camilan << endl;
         cout << "Pembayaran    : " << metodePembayaran << endl;
     }
+
+    // Destruktor ini membersihkan objek Penonton saat siklus hidupnya berakhir.
+    ~Penonton() {}
 };
