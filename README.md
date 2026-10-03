@@ -135,7 +135,6 @@ Class utama pengelola bioskop yang menerapkan konsep **Composition** (memiliki `
 
 1. **Multiple Inheritance**:
    - Diterapkan pada class `Penonton` yang mengambil sifat identitas personal dari `Orang` dan sifat tiket bioskop dari `Tiket`.
-   - Pada C++ dan Python, fitur pewarisan majemuk (*Multiple Inheritance*) ini didukung secara *native* langsung dari bahasa (`class Penonton : public Orang, public Tiket` pada C++ dan `class Penonton(Orang, Tiket)` pada Python).
 
 2. **Composition (Komposisi)**:
    - Diterapkan antara class `Bioskop` dan `Studio`. Objek `Studio` diciptakan secara langsung di dalam konstruktor class `Bioskop` (*tightly coupled*), yang berarti keberadaan `Studio` merupakan bagian utuh dari siklus hidup objek `Bioskop`.
