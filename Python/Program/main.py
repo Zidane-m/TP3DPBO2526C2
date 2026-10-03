@@ -9,14 +9,14 @@ def tampilkanTabelPenonton(daftar_penonton):
         return
 
     headers = [
-        "NIK", "Nama", "L/P", "Kode", "Film", "Kursi", "Harga", "Camilan", "Pembayaran"
+        "No KTP", "Nama", "L/P", "Kode", "Film", "Kursi", "Harga", "Camilan", "Pembayaran"
     ]
     rows = []
 
     for i in range(len(daftar_penonton)):
         p = daftar_penonton[i]
         rows.append([
-            p.getNik(),
+            p.getNoKtp(),
             p.getNama(),
             p.getJenisKelamin(),
             p.getKodeTiket(),

@@ -23,11 +23,11 @@ classDiagram
     Bioskop o-- Penonton : Array of Object
 
     class Orang {
-        #nik : string
+        #noKtp : string
         #nama : string
         #jenisKelamin : string
-        +getNik() string
-        +setNik(nik : string) void
+        +getNoKtp() string
+        +setNoKtp(noKtp : string) void
         +getNama() string
         +setNama(nama : string) void
         +getJenisKelamin() string
@@ -92,6 +92,11 @@ classDiagram
     }
 ```
 
+#### Keterangan Simbol Diagram:
+- **`+` (Public):** Anggota kelas dapat diakses dari luar kelas (seluruh *method*, *getter*, dan *setter*).
+- **`-` (Private):** Anggota kelas hanya dapat diakses di dalam kelasnya sendiri (atribut kelas `Penonton`, `Studio`, `Bioskop`).
+- **`#` (Protected):** Anggota kelas dapat diakses oleh kelas itu sendiri dan kelas turunannya (atribut kelas induk `Orang` dan `Tiket`).
+
 ---
 
 ### 2. Penjelasan Atribut dan Method Setiap Kelas
@@ -100,15 +105,15 @@ classDiagram
 Class dasar pertama yang menyimpan identitas personal individu/penonton.
 
 **Atribut:**
-- `nik` (`string`): Nomor Induk Kependudukan atau identitas unik.
+- `noKtp` (`string`): Nomor KTP atau identitas unik kependudukan penonton.
 - `nama` (`string`): Nama lengkap orang.
 - `jenisKelamin` (`string`): Jenis kelamin orang.
 
 **Method:**
 - `Orang()`: Konstruktor default untuk inisialisasi awal nilai kosong.
-- `Orang(nik, nama, jenisKelamin)`: Konstruktor berparameter untuk mengisi nilai awal atribut.
-- `getNik()`: Mengembalikan nilai `nik`.
-- `setNik(nik)`: Mengubah nilai `nik`.
+- `Orang(noKtp, nama, jenisKelamin)`: Konstruktor berparameter untuk mengisi nilai awal atribut.
+- `getNoKtp()`: Mengembalikan nilai `noKtp`.
+- `setNoKtp(noKtp)`: Mengubah nilai `noKtp`.
 - `getNama()`: Mengembalikan nilai `nama`.
 - `setNama(nama)`: Mengubah nilai `nama`.
 - `getJenisKelamin()`: Mengembalikan nilai `jenisKelamin`.

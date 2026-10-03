@@ -1,29 +1,30 @@
+#pragma once
 #include <iostream>
 #include <string>
 using namespace std;
 
 class Orang {
 protected:
-    string nik;
+    string noKtp;
     string nama;
     string jenisKelamin;
 
 public:
     // Konstruktor ini membuat objek Orang dengan nilai awal kosong.
-    Orang() : nik(""), nama(""), jenisKelamin("") {}
+    Orang() : noKtp(""), nama(""), jenisKelamin("") {}
 
     // Konstruktor ini mengisi data dasar Orang dari nilai yang diberikan.
-    Orang(string nik, string nama, string jenisKelamin)
-        : nik(nik), nama(nama), jenisKelamin(jenisKelamin) {}
+    Orang(string noKtp, string nama, string jenisKelamin)
+        : noKtp(noKtp), nama(nama), jenisKelamin(jenisKelamin) {}
 
-    // Method ini mengembalikan NIK orang.
-    string getNik() const {
-        return nik;
+    // Method ini mengembalikan nomor KTP orang.
+    string getNoKtp() const {
+        return noKtp;
     }
 
-    // Method ini mengubah NIK orang.
-    void setNik(string nik) {
-        this->nik = nik;
+    // Method ini mengubah nomor KTP orang.
+    void setNoKtp(string noKtp) {
+        this->noKtp = noKtp;
     }
 
     // Method ini mengembalikan nama orang.
@@ -48,7 +49,7 @@ public:
 
     // Method ini menampilkan data dasar orang.
     virtual void tampilkanData() const {
-        cout << "NIK           : " << nik << endl;
+        cout << "No KTP        : " << noKtp << endl;
         cout << "Nama          : " << nama << endl;
         cout << "Jenis Kelamin : " << jenisKelamin << endl;
     }

@@ -3,8 +3,8 @@ from Tiket import Tiket
 
 class Penonton(Orang, Tiket):
     # Konstruktor ini membuat objek Penonton yang mewarisi sifat Orang dan Tiket (Multiple Inheritance).
-    def __init__(self, nik="", nama="", jenis_kelamin="", kode_tiket="", nama_film="", nomor_kursi="", harga=0.0, camilan="", metode_pembayaran=""):
-        Orang.__init__(self, nik, nama, jenis_kelamin)
+    def __init__(self, no_ktp="", nama="", jenis_kelamin="", kode_tiket="", nama_film="", nomor_kursi="", harga=0.0, camilan="", metode_pembayaran=""):
+        Orang.__init__(self, no_ktp, nama, jenis_kelamin)
         Tiket.__init__(self, kode_tiket, nama_film, nomor_kursi, harga)
         self.__camilan = camilan
         self.__metode_pembayaran = metode_pembayaran

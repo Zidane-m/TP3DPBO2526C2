@@ -12,15 +12,15 @@ void tampilkanTabelPenonton(const vector<Penonton>& daftarPenonton) {
         return;
     }
 
-    string header[9] = {"NIK", "Nama", "L/P", "Kode", "Film", "Kursi", "Harga", "Camilan", "Pembayaran"};
+    string header[9] = {"No KTP", "Nama", "L/P", "Kode", "Film", "Kursi", "Harga", "Camilan", "Pembayaran"};
     int lebar[9];
     for (int i = 0; i < 9; i++) {
         lebar[i] = header[i].length();
     }
 
     for (int i = 0; i < (int)daftarPenonton.size(); i++) {
-        if ((int)daftarPenonton[i].getNik().length() > lebar[0]) {
-            lebar[0] = daftarPenonton[i].getNik().length();
+        if ((int)daftarPenonton[i].getNoKtp().length() > lebar[0]) {
+            lebar[0] = daftarPenonton[i].getNoKtp().length();
         }
         if ((int)daftarPenonton[i].getNama().length() > lebar[1]) {
             lebar[1] = daftarPenonton[i].getNama().length();
@@ -69,7 +69,7 @@ void tampilkanTabelPenonton(const vector<Penonton>& daftarPenonton) {
 
     for (int i = 0; i < (int)daftarPenonton.size(); i++) {
         cout << "|";
-        cout << " " << left << setw(lebar[0]) << daftarPenonton[i].getNik() << " |";
+        cout << " " << left << setw(lebar[0]) << daftarPenonton[i].getNoKtp() << " |";
         cout << " " << left << setw(lebar[1]) << daftarPenonton[i].getNama() << " |";
         cout << " " << left << setw(lebar[2]) << daftarPenonton[i].getJenisKelamin() << " |";
         cout << " " << left << setw(lebar[3]) << daftarPenonton[i].getKodeTiket() << " |";
