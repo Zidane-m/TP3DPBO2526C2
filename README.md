@@ -246,5 +246,7 @@ Class utama pengelola studio yang menerapkan konsep **Composition** (memiliki `L
 ## Dokumentasi Output Program
 
 ### 1. C++
+![Output C++](CPP/Dokumentasi/Dokumentasi_cpp_tp3.png)
 
 ### 2. Python
+![Output Python](Python/Dokumentasi/Dokumentasi_py_tp3.png)
