@@ -13,7 +13,7 @@ Sistem Informasi Manajemen Penonton Bioskop dengan Multiple Inheritance, Composi
 
 ### 1. Desain Class dan Relasi (Diagram Program)
 
-Program menggunakan lima class dengan hubungan pewarisan majemuk (*Multiple Inheritance*), hubungan bagian-dari (*Composition*), dan penampung objek jamak (*Array of Object*):
+Program dengan tema Bioskop, menggunakan lima class dengan hubungan pewarisan majemuk (*Multiple Inheritance*), hubungan bagian-dari (*Composition*), dan penampung objek jamak (*Array of Object*):
 
 ```mermaid
 classDiagram
