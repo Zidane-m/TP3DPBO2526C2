@@ -15,7 +15,7 @@ Sistem Informasi Manajemen Penonton Bioskop dengan Multiple Inheritance, Composi
 
 Program menggunakan lima class dengan hubungan pewarisan majemuk (*Multiple Inheritance*), hubungan bagian-dari (*Composition*), dan penampung objek jamak (*Array of Object*):
 
-![Diagram TP3](Diagram_TP3.png)
+![desain/diagram tp3](Diagram_TP3_fix.png)
 
 #### Keterangan Simbol Diagram:
 - **`+` (Public):** Anggota kelas dapat diakses dari luar kelas (seluruh *method*, *getter*, dan *setter*).
